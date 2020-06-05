@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Data.Context;
 using Business.Interfaces;
 using Data.Repository;
+using AutoMapper;
 
 namespace Web
 {
@@ -45,6 +46,9 @@ namespace Web
             services.AddScoped<MeuDbContext>();
             services.AddScoped<IPacienteRepository, PacienteRepository>();
             services.AddScoped<IEnderecoRepository, EnderecoRepository>();
+
+            //procure qualquer classe que tenha herança do Profile
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
