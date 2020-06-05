@@ -18,7 +18,7 @@ namespace Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // anteriormente deveria fazer o Map de cada classe mapeada. 
+           // anteriormente deveria fazer o Map de cada classe mapeada. 
             // dessa forma com Assembly, agora é feito todos em uma única vez só.
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(MeuDbContext).Assembly);
 
