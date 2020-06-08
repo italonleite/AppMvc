@@ -83,12 +83,26 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, PacienteViewModel pacienteViewModel)
         {
-            if (id != pacienteViewModel.Id) return NotFound(); 
+            if (id != pacienteViewModel.Id) return NotFound();
 
-            if (!ModelState.IsValid) return View(pacienteViewModel);
+            //falta inserir todos os campos para edição.
+            var pacienteAtualizacao = await ObterPacienteEndereco(id);
+            pacienteAtualizacao.Nome = pacienteViewModel.Nome;
+            pacienteAtualizacao.Sexo = pacienteViewModel.Sexo;
+            pacienteAtualizacao.Idade = pacienteViewModel.Idade;
+            pacienteAtualizacao.IndicadoPor = pacienteViewModel.IndicadoPor;
+            pacienteAtualizacao.Nascimento = pacienteViewModel.Nascimento;
+            pacienteAtualizacao.Endereco.Bairro = pacienteViewModel.Endereco.Bairro;
+            pacienteAtualizacao.Endereco.Cep = pacienteViewModel.Endereco.Cep;
+            pacienteAtualizacao.Endereco.Cidade = pacienteViewModel.Endereco.Cidade;
+            pacienteAtualizacao.Endereco.Estado = pacienteViewModel.Endereco.Estado;
+            if (!ModelState.IsValid) return View(pacienteAtualizacao);
+
            
-            var paciente = _mapper.Map<Paciente>(pacienteViewModel);
-            await _pacienteRepository.Atualizar(paciente);
+
+
+
+            await _pacienteRepository.Atualizar(_mapper.Map<Paciente>(pacienteAtualizacao));
                 
                 return RedirectToAction("Index");
             

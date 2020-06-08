@@ -40,11 +40,7 @@ namespace Data.Mappings
                .IsRequired()
                .HasColumnType("varchar(100)");
 
-            builder.Property(p => p.DataCadastro)
-             .IsRequired()
-             .HasColumnType("datetime");
-
-
+            
             builder.HasOne(p => p.Endereco)
                     .WithOne(e => e.Paciente);
 
